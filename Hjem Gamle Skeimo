@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF-visning</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            height: 100vh;
+            margin: 0;
+        }
+        #menu {
+            width: 250px;
+            background: #f4f4f4;
+            padding: 20px;
+            overflow-y: auto;
+            border-right: 2px solid #ccc;
+        }
+        #menu a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+            background: #ddd;
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
+        #menu a:hover {
+            background: #bbb;
+        }
+        #content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+        iframe {
+            width: 100%;
+            height: 90vh;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Venstre meny -->
+    <div id="menu">
+        <h3>PDF-dokumenter</h3>
+        <a href="#" onclick="loadPDF('https://www.example.com/pdf1.pdf')">Leilighet A</a>
+        <a href="#" onclick="loadPDF('https://www.example.com/pdf2.pdf')">Leilighet B</a>
+        <a href="#" onclick="loadPDF('https://www.example.com/pdf3.pdf')">Leilighet C</a>
+        <a href="#" onclick="loadPDF('https://www.example.com/pdf4.pdf')">Næring</a>
+    </div>
+
+    <!-- Høyre side der PDF vises -->
+    <div id="content">
+        <iframe id="pdfViewer" src="" ></iframe>
+    </div>
+
+    <script>
+        function loadPDF(pdfUrl) {
+            document.getElementById("pdfViewer").src = pdfUrl;
+        }
+    </script>
+
+</body>
+</html>
