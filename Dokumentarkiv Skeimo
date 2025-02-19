@@ -1,0 +1,294 @@
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dokumentarkiv Gamle Skeimo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        /* Hovedinnholdet (menyen + PDF-visning) */
+        #container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Navigasjonsfelt (venstre marg) */
+        #menu {
+            background: #f4f4f4;
+            padding: 20px;
+            border-right: 2px solid #ccc;
+            overflow-y: auto;
+            min-width: 200px;
+            width: 300px; /* Starter med standard bredde */
+            position: relative;
+        }
+
+        /* Resizer-grip (justering for å dra på margen) */
+        #menu-resizer {
+            width: 5px;
+            background-color: #ccc;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            cursor: ew-resize;
+        }
+
+        #menu h3 {
+            font-size: 20px;
+        }
+
+        #menu a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+            background: #ddd;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+
+        #menu a:hover {
+            background: #bbb;
+        }
+
+        /* Paneler for underkategorier */
+        .accordion {
+            cursor: pointer;
+            padding: 10px;
+            text-align: left;
+            background-color: #ddd;
+            border: none;
+            width: 100%;
+            margin: 5px 0;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+
+        .accordion:hover {
+            background-color: #bbb;
+        }
+
+        .panel {
+            padding-left: 20px;
+            display: none;
+            background-color: #f1f1f1;
+        }
+
+        .panel a {
+            padding: 14px;
+            text-decoration: none;
+            display: block;
+            color: #333;
+            font-size: 6px;
+        }
+
+        .panel a:hover {
+            background: #ddd;
+        }
+
+        /* Justering av PDF-visning */
+        #content {
+            flex-grow: 1;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            flex-direction: column;
+        }
+
+        iframe {
+            width: 90%;
+            height: 80vh;
+            border: none;
+        }
+
+        /* Knappene for å justere PDF-vinduets størrelse */
+        #resize-buttons {
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .resize-btn {
+            padding: 5px 10px;
+            margin: 5px;
+            cursor: pointer;
+            background-color: #ddd;
+            border-radius: 5px;
+            border: none;
+            font-size: 12px;
+        }
+
+        .resize-btn:hover {
+            background-color: #bbb;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="menu">
+            <h3>Dokumentarkiv Gamle Skeimo</h3>
+            <!-- Accordion button for 1974 Telefonkiosk -->
+            <button class="accordion">1974 Telefonkiosk</button>
+            <div class="panel">
+                <a href="#" onclick="loadPDF('https://rustendeler.com/public_html/1974%20Telefonkiosk/127-3%20Oppf%C3%B8ring%20telefonkiosk%201974.pdf')">127-3 Oppføring telefonkiosk 1974</a>
+            </div>
+
+            <!-- Accordion button for other folders -->
+            <button class="accordion">1981 Tillbygg Leilighet 2 Etg</button>
+            <div class="panel">
+                <a href="#" onclick="loadPDF('https://rustendeler.com/public_html/1981%20Tillbygg%20leilighet%202%20etg/127-3%20Tilbygg%20bolig%20-%20TEGNING%201981.pdf')">127-3 Tilbygg bolig - TEGNING 1981</a>
+                <a href="#" onclick="loadPDF('https://rustendeler.com/public_html/1981%20Tillbygg%20leilighet%202%20etg/127-3%20Tilbygg%20bolig%2C%20byggesak%20l%C3%B8yve%201981.pdf')">127-3 Tilbygg bolig, byggesak løyve 1981</a>
+            </div>
+
+            <button class="accordion">2011 Reguleringsplan for Skei</button>
+            <div class="panel">
+                <a href="#" onclick="loadPDF('https://rustendeler.com/public_html/2011%20Reguleringsplan%20for%20Skei/Planf%C3%B8resegner_Skei_2011.pdf')">Planføresegner_Skei_2011</a>
+                <a href="#" onclick="loadPDF('https://rustendeler.com/public_html/2011%20Reguleringsplan%20for%20Skei/Regplankart_Skei_2011_vedteke_A0.pdf')">Regplankart_Skei_2011_vedteke_A0</a>
+            </div>
+
+            <button class="accordion">2013 Bruksendring og etablering av leilighetene i 2 etg</button>
+            <div class="panel">
+                <a href="#" onclick="loadPDF('https://rustendeler.com/public_html/2013%20Bruksendring%20og%20etablering%20av%20leiligheitene%20i%202%20etg/127-3%20Installering%20brannalarmanlegg%202013.pdf')">127-3 Installering brannalarmanlegg 2013</a>
+                <a href="#" onclick="loadPDF('https://rustendeler.com/public_html/2013%20Bruksendring%20og%20etablering%20av%20leiligheitene%20i%202%20etg/Ansvarsrett.PDF')">Ansvarsrett</a>
+                <a href="#" onclick="loadPDF('https://rustendeler.com/public_html/2013%20Bruksendring%20og%20etablering%20av%20leiligheitene%20i%202%20etg/Brannalarm%20Per%20Hagen%20Eiendom.pdf')">Brannalarm Per Hagen Eiendom</a>
+                <a href="#" onclick="loadPDF('https://rustendeler.com/public_html/2013%20Bruksendring%20og%20etablering%20av%20leiligheitene%20i%202%20etg/Ferdigattest%20Brannalarmanlegg%20gnr.127%20003.pdf')">Ferdigattest Brannalarmanlegg gnr.127 003</a>
+                <a href="#" onclick="loadPDF('https://rustendeler.com/public_html/2013%20Bruksendring%20og%20etablering%20av%20leiligheitene%20i%202%20etg/Gjennomf%C3%B8ringsplan.PDF')">Gjennomføringsplan</a>
+                <a href="#" onclick="loadPDF('https://rustendeler.com/public_html/2013%20Bruksendring%20og%20etablering%20av%20leiligheitene%20i%202%20etg/Nabovarsel.PDF')">Nabovarsel</a>
+                <a href="#" onclick="loadPDF('https://rustendeler.com/public_html/2013%20Bruksendring%20og%20etablering%20av%20leiligheitene%20i%202%20etg/Produktark%20Eltek%20Delta%20Compact.PDF')">Produktark Eltek Delta Compact</a>
+                <a href="#" onclick="loadPDF('https://rustendeler.com/public_html/2013%20Bruksendring%20og%20etablering%20av%20leiligheitene%20i%202%20etg/Samsvarserkl%C3%A6ring%20Brannalarm%20Per%20Hagen%20Eiendom.PDF')">Samsvarserklæring Brannalarm Per Hagen Eiendom</a>
+                <a href="#" onclick="loadPDF('https://rustendeler.com/public_html/2013%20Bruksendring%20og%20etablering%20av%20leiligheitene%20i%202%20etg/Sluttkontrollskjema%20Brannalarm%20Per%20Hagen%20Eiendom.PDF')">Sluttkontrollskjema Brannalarm Per Hagen Eiendom</a>
+                <a href="#" onclick="loadPDF('https://rustendeler.com/public_html/2013%20Bruksendring%20og%20etablering%20av%20leiligheitene%20i%202%20etg/S%C3%B8knad%20Brannalarm%20Per%20Hagen%20Eiendom.PDF')">Søknad brannalarm Per Hagen Eiendom  - gnr. 127 003(8)</a>
+                <a href="#" onclick="loadPDF('https://rustendeler.com/public_html/2013%20Bruksendring%20og%20etablering%20av%20leiligheitene%20i%202%20etg/S%C3%B8knad%20brannalarm%20Per%20Hagen%20Eiendom%20%20-%20gnr.%20127%20003.pdf')">Søknad brannalarm Per Hagen Eiendom  - gnr. 127 003</a>
+                <a href="#" onclick="loadPDF('https://rustendeler.com/public_html/2013%20Bruksendring%20og%20etablering%20av%20leiligheitene%20i%202%20etg/S%C3%B8knad%20brannalarm%20Per%20Hagen%20Eiendom%20%20-%20gnr.%20127%20003(8).pdf')">Søknad Brannalarm Per Hagen Eiendom</a>
+                <a href="#" onclick="loadPDF('https://rustendeler.com/public_html/2013%20Bruksendring%20og%20etablering%20av%20leiligheitene%20i%202%20etg/S%C3%B8knad%20om%20ansvarsrett%20Brannalarm%20Per%20Hagen%20Eiendom.PDF')">Søknad om ansvarsrett Brannalarm Per Hagen Eiendom</a>
+                <a href="#" onclick="loadPDF('https://rustendeler.com/public_html/2013%20Bruksendring%20og%20etablering%20av%20leiligheitene%20i%202%20etg/S%C3%B8knad%20om%20ferdigattest%20%20bustader%20p%C3%A5%20gnr.%20127%20003.pdf')">Søknad om ferdigattest  bustader på gnr. 127 003</a>
+                <a href="#" onclick="loadPDF('https://rustendeler.com/public_html/2013%20Bruksendring%20og%20etablering%20av%20leiligheitene%20i%202%20etg/S%C3%B8knad%20om%20ferdigattest%20Brannalarm%20Per%20Hagen%20Eiendom.PDF')">Søknad om ferdigattest Brannalarm Per Hagen Eiendom</a>
+                <a href="#" onclick="loadPDF('https://rustendeler.com/public_html/2013%20Bruksendring%20og%20etablering%20av%20leiligheitene%20i%202%20etg/S%C3%B8knad%20om%20tillatelse%20til%20tiltak%20-%20Bruksendring%20-%20Gnr.%20127%20003%20-%20Per%20Hagen.PDF')">Søknad om tillatelse til tiltak - Bruksendring - Gnr. 127 003 - Per Hagen</a>
+                <a href="#" onclick="loadPDF('https://rustendeler.com/public_html/2013%20Bruksendring%20og%20etablering%20av%20leiligheitene%20i%202%20etg/S%C3%B8knad%20om%20tillatelse%20til%20tiltak%20-%20Bruksendring%202.%20etg%20%20-%20Gnr.%20127%20003%20-%20Per%20Hagen.pdf')">Søknad om tillatelse til tiltak - Bruksendring 2. etg  - Gnr. 127 003 - Per Hagen</a>
+                <a href="#" onclick="loadPDF('https://rustendeler.com/public_html/2013%20Bruksendring%20og%20etablering%20av%20leiligheitene%20i%202%20etg/Tegning%20Brannalarm%20Per%20Hagen%20Eiendom.PDF')">Tegning Brannalarm Per Hagen Eiendom</a>
+                <a href="#" onclick="loadPDF('https://rustendeler.com/public_html/2013%20Bruksendring%20og%20etablering%20av%20leiligheitene%20i%202%20etg/Teikningar.PDF')">Teikningar</a>
+                <a href="#" onclick="loadPDF('https://rustendeler.com/public_html/2013%20Bruksendring%20og%20etablering%20av%20leiligheitene%20i%202%20etg/Ytre%20rammer%20og%20bygningsspesifikasjon.PDF')">Ytre rammer og bygningsspesifikasjon</a>
+            </div>
+
+            <button class="accordion">2021 Kommuneplan for Skjåk 2020-2030</button>
+            <div class="panel">
+                <a href="#" onclick="loadPDF('https://rustendeler.com/public_html/2021%20kommuneplan%20for%20Skj%C3%A5k%202020-2030/2_%20KP%20Skj%C3%A5k-Planf%C3%B8resegner_Vedtak20210624_KORR%2C%20komuneplan%202020-2030.pdf')">2_ KP Skjåk-Planføresegner_Vedtak20210624_KORR, komuneplan 2020-2030</a>
+            </div>
+
+            <button class="accordion">2025 Varsel om oppstart av områderegulering for Bismo sentrum</button>
+            <div class="panel">
+                <a href="#" onclick="loadPDF('https://rustendeler.com/public_html/2025%20Varsel%20om%20oppstart%20av%20omr%C3%A5deregulering%20for%20Bismo%20sentrum/Framdriftsplan%20ved%20oppstart.pdf')">Framdriftsplan ved oppstart</a>
+                <a href="#" onclick="loadPDF('https://rustendeler.com/public_html/2025%20Varsel%20om%20oppstart%20av%20omr%C3%A5deregulering%20for%20Bismo%20sentrum/Kartvedlegg%20sentrumsomr%C3%A5de%20Bismo.pdf')">Kartvedlegg sentrumsområde Bismo</a>
+                <a href="#" onclick="loadPDF('https://rustendeler.com/public_html/2025%20Varsel%20om%20oppstart%20av%20omr%C3%A5deregulering%20for%20Bismo%20sentrum/Masterplan%20Bismo.pdf')">Masterplan Bismo</a>
+                <a href="#" onclick="loadPDF('https://rustendeler.com/public_html/2025%20Varsel%20om%20oppstart%20av%20omr%C3%A5deregulering%20for%20Bismo%20sentrum/Planoppstart%20Bismo%20sentrumsomr%C3%A5de.pdf')">Planoppstart Bismo sentrumsområde</a>
+                <a href="#" onclick="loadPDF('https://rustendeler.com/public_html/2025%20Varsel%20om%20oppstart%20av%20omr%C3%A5deregulering%20for%20Bismo%20sentrum/Saksprotokoll_%20Start%20av%20omr%C3%A5dereguleringsplan%20Bismo.pdf')">Saksprotokoll_ Start av områdereguleringsplan Bismo</a>
+                <a href="#" onclick="loadPDF('https://rustendeler.com/public_html/2025%20Varsel%20om%20oppstart%20av%20omr%C3%A5deregulering%20for%20Bismo%20sentrum/Tiltaksplan%20Bismo.pdf')">Tiltaksplan Bismo</a>
+                <a href="#" onclick="loadPDF('https://rustendeler.com/public_html/2025%20Varsel%20om%20oppstart%20av%20omr%C3%A5deregulering%20for%20Bismo%20sentrum/Varsel%20om%20oppstart%20av%20omr%C3%A5deregulering%20for%20Bismo%20sentrum.pdf')">Varsel om oppstart av områderegulering for Bismo sentrum</a>
+            </div>
+
+            <button class="accordion">Kart 127-3</button>
+            <div class="panel">
+                <a href="#" onclick="loadPDF('https://rustendeler.com/public_html/Kart%20127-3/Kartutsnitt%20A3.pdf')">Kartutsnitt A3</a>
+            </div>
+
+            <button class="accordion">Matrikkelen</button>
+            <div class="panel">
+                <a href="#" onclick="loadPDF('https://rustendeler.com/public_html/Matrikkelen/Utklipp%20fra%20matrikkelen.png')">Utklipp fra matrikkelen</a>
+            </div>
+
+            <!-- Resizer for menu (dragekanten) -->
+            <div id="menu-resizer"></div>
+        </div>
+
+        <div id="content">
+            <!-- Knappene for å justere PDF-vinduets størrelse -->
+            <div id="resize-buttons">
+                <button class="resize-btn" onclick="resizePDF(80)">Liten</button>
+                <button class="resize-btn" onclick="resizePDF(90)">Medium</button>
+                <button class="resize-btn" onclick="resizePDF(100)">Stor</button>
+            </div>
+            <iframe id="pdf-viewer" src="" style="width: 90%; height: 80vh;"></iframe>
+        </div>
+    </div>
+
+    <script>
+        // Hent lagrede innstillinger fra localStorage
+        window.onload = function() {
+            const savedWidth = localStorage.getItem('pdf-width');
+            const savedHeight = localStorage.getItem('pdf-height');
+            const savedScale = localStorage.getItem('pdf-scale');
+
+            if (savedWidth && savedHeight) {
+                document.getElementById('pdf-viewer').style.width = savedWidth + '%';
+                document.getElementById('pdf-viewer').style.height = savedHeight + 'vh';
+            }
+
+            if (savedScale) {
+                resizePDF(savedScale); // Bruk lagret skalering
+            }
+        };
+
+        // Funksjon for å vise PDF
+        function loadPDF(pdfFile) {
+            document.getElementById('pdf-viewer').src = pdfFile;
+        }
+
+        // Funksjon for å endre størrelsen på PDF-visningen
+        function resizePDF(size) {
+            const iframe = document.getElementById('pdf-viewer');
+            iframe.style.width = size + "%";
+            iframe.style.height = size * 1.1 + "vh"; // Juster høyden i forhold til bredden
+
+            // Lagre innstillingene i localStorage
+            localStorage.setItem('pdf-width', size);
+            localStorage.setItem('pdf-height', size * 1.1);
+            localStorage.setItem('pdf-scale', size);
+        }
+
+        // Accordion functionality
+        var acc = document.getElementsByClassName("accordion");
+        for (var i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.display === "block") {
+                    panel.style.display = "none";
+                } else {
+                    panel.style.display = "block";
+                }
+            });
+        }
+
+        // Justering av margen ved å dra på resizer
+        const resizer = document.getElementById("menu-resizer");
+        const menu = document.getElementById("menu");
+        let isResizing = false;
+
+        resizer.addEventListener("mousedown", function(e) {
+            isResizing = true;
+            document.addEventListener("mousemove", handleMouseMove);
+            document.addEventListener("mouseup", function() {
+                isResizing = false;
+                document.removeEventListener("mousemove", handleMouseMove);
+            });
+        });
+
+        function handleMouseMove(e) {
+            if (isResizing) {
+                const newWidth = e.clientX;
+                menu.style.width = newWidth + "px";
+            }
+        }
+    </script>
+</body>
+</html>
